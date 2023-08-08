@@ -3,12 +3,12 @@
 
 domain_name=$1
 if [ "$#" -eq 2 ]; then
-	sub=("www" "lb-01" "web-01" "web-02")
+    sub=$2
 else
-   sub=$2
+	sub=("www" "lb-01" "web-01" "web-02")
 fi
 for subdomain in ${sub[@]}; do
     record_type="$(dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print $4}')"
     destination_ip="$(dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print $5}')"
-    echo -n "The subdomain $subdomain"
+    echo "The subdomain $subdomain is a $record_type record and points to $destination_ip"
 done
