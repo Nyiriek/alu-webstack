@@ -40,5 +40,6 @@ frontend www-https
 
 backend web-backend
         redirect scheme https if !{ ssl_fc }
+        balance roundrobin
         server 5724-web-01 34.173.136.163:80
         server 5724-web-02 34.228.255.204:80
